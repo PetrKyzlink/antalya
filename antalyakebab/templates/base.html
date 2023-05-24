@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="cs-cz">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Klášterec Antalya Kebab</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="info-banner">
+                <a href="{% url 'nabidka' %}" id="logo"><img class="logo" src="{% static 'images/antalya-logo.png' %}" alt="Klášterec Antalya Kebab"></a>
+                <p class="ordering-phone">Objednávat můžete zde nebo na tel.: <strong >+420 777 510 166</strong></p>
+                <p class="delivery-price-info">* Dovezeme až k Vám domů za <span>20 Kč</span></p> 
+                <ul class="ordering-period">
+                    <li>PO - ČT 10:00 - 22:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PÁ 10:00 - 01:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO 10:00 - 24:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NE 11:00 - 22:00</li>
+                </ul>
+                <ul class="icons-banner--full">
+                    <li><a href="https://www.facebook.com/Klasterecantalyakebab/" target="_blank"><img class="icons-banner" src="{% static 'images/fb.png' %}" alt="ikona Facebook"></a></li>
+                    <li><a href="#" target="_blank"><img class="icons-banner" src="{% static 'images/instagram.png' %}" alt="ikona Instagram"></a></li>
+                </ul>
+                {% if cart_items_total %}
+                    <div class="cart-btn">
+                        <a href="{% url 'kosik' %}">KOŠÍK ({{cart_items_total}})</a>
+                    </div>
+                {% else %}
+                    <div class="cart-btn">
+                        <a href="{% url 'kosik' %}">KOŠÍK</a>
+                    </div>
+                {% endif %}
+            </div>
+            <nav>
+                {% if cart_items_total %}
+                    <div class="cart-btn-mobile">
+                        <a href="{% url 'kosik' %}">KOŠÍK ({{cart_items_total}})</a>
+                    </div>
+                {% else %}
+                    <div class="cart-btn-mobile">
+                        <a href="{% url 'kosik' %}">KOŠÍK</a>
+                    </div>
+                {% endif %}
+                <ul class="list-category">
+                    <li><a href="/nabidka/#salat">Salát</a></li>
+                    <li><a href=/nabidka/#doner-box>Döner box</a></li>
+                    <li><a href=/nabidka/#doner-kebab-v-chlebu>Döner kebab v chlebu</a></li>
+                    <li><a href=/nabidka/#vegetarianske-jidlo>Vegetariánské jídlo</a></li>
+                    <li><a href=/nabidka/#durum-kebab-v-tortile>Dürüm kebab v tortile</a></li>
+                    <li><a href=/nabidka/#kebab-na-taliri>Kebab na talíři</a></li>
+                    <li><a href=/nabidka/#pizza>Pizza</a></li>
+                    <li><a href=/nabidka/#ostatni>Ostatní</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>            
+        {% block content %}
+
+        {% endblock%}
+        </main>
+        <footer>
+            <div class="ordering-place-delivery">
+                <ul class="ordering-period__footer">
+                    <li class="place">ROZVOZ</li>
+                    <li>PO - ČT &nbsp;10:00 - 22:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PÁ &nbsp;10:00 - 01:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SO &nbsp;10:00 - 24:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NE &nbsp;11:00 - 22:00</li>
+                    <div>
+                        <li>Objednávky na tel.:</li>
+                        <li>+420 777 510 166</li>
+                    </div>
+                </ul>
+            </div>
+            <div class="ordering-place-restaurant">
+                <ul class="ordering-period__footer">
+                    <li class="place">RESTAURACE - ANTALYA</li>
+                    <li>PO - ČT &nbsp;10:00 - 22:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;PÁ &nbsp;10:00 - 01:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;SO &nbsp;10:00 - 24:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;NE &nbsp;11:00 - 22:00</li>
+                    <div>
+                        <li>Budovatelská 488</li>
+                        <li>Klášterec nad Ohří</li>
+                    </div>             
+                </ul>
+            </div>
+            <div class="ordering-place-omid">
+                <ul class="ordering-period__footer">
+                    <li class="place">POBOČKA OMID KEBAB</li>
+                    <li>PO - ČT &nbsp;10:00 - 22:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;PÁ &nbsp;10:00 - 01:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;SO &nbsp;10:00 - 24:00</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;NE &nbsp;11:00 - 22:00</li>
+                    <div>
+                        <li>Nádražní 199</li>
+                        <li>Klášterec nad Ohří</li>
+                    </div>             
+                </ul>
+            </div>
+            <!--<p class="card-pay-info">MOŽNÁ PLATBA KARTOU</p>-->
+            <ul class="foot-nav">
+                <li><a class="alerrgens-link" href="store/alergeny.html">Seznam alergenů</a></li>
+                <li><a class="terms-link" href="store/obchodni-podminky.html">Obchodní podmínky</a></li>
+                <li><a class="gdpr-link" href="store/zpracovani-osobnich-udaju.html">Zpracovaní osobních údajů</a></li>
+                <li><a class="cookies-link" href="store/cookies.html">Cookies</a></li>
+            </ul>
+            <p class="copyright">&#169; <a href="https://www.linkedin.com/in/petr-kyzlink/" target="_blank">xyz-link</a> - 2023 - Antalya Kebab - Klášterec nad Ohří - Budovatelská 488</p>
+        </footer>
+    </div>
+
+    {% include 'store/alergeny.html' %}
+    {% include 'store/obchodni-podminky.html' %}
+    {% include 'store/zpracovani-osobnich-udaju.html' %}
+    {% include 'store/cookies.html' %}
+    {% if not request.COOKIES.accepted %}
+        {% include 'store/cookies-banner.html' %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var acceptButton = document.querySelectorAll('.accept-cookies');
+                var rejectButton = document.querySelectorAll('.reject-cookies');
+                
+                acceptButton.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        function getToken(name) {
+                            var cookieValue = null;
+                            if (document.cookie && document.cookie !== '') {
+                                var cookies = document.cookie.split(';');
+                                for (var i = 0; i < cookies.length; i++) {
+                                    var cookie = cookies[i].trim();
+                                    // Does this cookie string begin with the name we want?
+                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                    }
+                                }
+                            }
+                            return cookieValue;
+                        }
+
+                        var csrftoken = getToken('csrftoken')
+
+                        function uuidv4() {
+                            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                                let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                            return v.toString(16);
+                            });
+                        }
+
+                        let device = getToken('device')
+
+                        if (device == null || device == undefined || device =='' ){
+                            device = uuidv4()
+                        }
+                        var date = new Date();
+                        date.setTime(date.getTime() + (14 * 24 * 60 * 60 * 1000)); // 14 dní
+                        var expires = "; expires=" + date.toUTCString();
+                        document.cookie = "device=" + device + expires + ";domain=;path=/";
+                        document.cookie = "accepted=True" + expires + ";domain=;path=/";
+                        fetch('/accept_cookies/')
+                            .then(function() {
+                                document.querySelector('#cookies-banner').remove();
+                                location.reload();
+                        });
+                    });
+                });
+
+                rejectButton.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        document.cookie = 'accepted=false;path=/;';
+                        document.cookie = 'csrftoken=;path=/;expires=0;';
+                        fetch('/reject_cookies/')
+                            .then(function() {
+                                document.querySelector('#cookies-banner').remove();
+                                location.reload();
+                            });
+                        });
+                    });
+                });
+    
+        </script>
+    {% endif %}
+    <script>
+
+    </script>
+    <script type="text/javascript" src="{% static '/js/cart.js' %}"></script> 
+</body>
+</html>

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="checkout-container">
+{% if cart_items_total != 0 %}
+    <form id='checkout-customer-form' class="checkout-customer-form"> 
+        {% csrf_token %}
+        <h3>Doručovací údaje:</h3>
+        <div class="checkout-customer-form__grid">
+            <select class="get-delivery" data-order="{{order.id}}">
+                {% if order.delivery != None %}
+                    <option value="{{ order.delivery.id }}"selected class="get-delivery">{{ order.delivery }}</option>
+                {% else %}
+                <option selected disabled>Zvolte doručení *</option>
+                {% endif %}
+                {% for choice_delivery in delivery %}
+                    <option value="{{ choice_delivery.id }}" class="get-delivery">{{ choice_delivery }}</option>
+                {% endfor %}
+            </select>
+            {% if order.delivery == None %}
+                <p class="get-delivery-price">Cena - rozvoz: 0 Kč</p>
+            {% endif %}
+            {% if order.delivery != None %}
+                <p class="get-delivery-price">Cena - rozvoz: {{ order.delivery.delivery_price }} Kč</p>
+            {% endif %}
+            {% if order.delivery != None %}
+            <input id="name" class="checkout-customer-form-field" type="text" name="name" placeholder="Jméno *">
+
+            <input id="last-name" class="checkout-customer-form-field" type="text" name="last_name" placeholder="Přijmení *">
+        
+            <input id="email" class="checkout-customer-form-field" type="email" name="email" placeholder="Email *">
+
+            <input id="phone" class="checkout-customer-form-field" type="text" name="phone" placeholder="Telefon: +420xxxxxxxxx *">
+            {% endif %}
+
+            {% if order.delivery != None and order.delivery.id != 1 %}
+                <input id="street" class="checkout-customer-form-field" type="text" name="street" placeholder="Ulice a číslo popisné *">
+
+                <input id="city" class="checkout-customer-form-field" type="text" name="city" placeholder="Město *">
+
+                <input id="zipcode" class="checkout-customer-form-field" type="text" name="zipcode" placeholder="PSČ *">
+        
+            {% endif %}
+
+            {% if order.delivery != None %}
+            <div class="customer-comment-area">
+                <textarea id="customer-comment" name="customer_comment" rows="5" maxlength="1000" onkeyup="numberOfCharacterComment()" placeholder="Poznámka"></textarea>
+                <div id="number-of-character">1000/1000</div>
+            </div>
+            {% endif %}
+        </div>
+        {% if order.delivery != None %}
+        <div class="checkout-consents">
+            <input id="consent-to-terms" name="consent_to_terms"  type="checkbox">
+            <label for="consent-to-terms">Souhlasím s <a class="terms-link" href="/obchodni-podminky.html" >obchodními podmínkami</a>. *</label>
+        </div>
+        <div class="checkout-consents">
+            <input id="consent-to-gdpr" name="consent_to_gdpr"  type="checkbox">
+            <label for="consent-to-gdpr">Souhlasím se <a class="gdpr-link" href="/zpracovani-osobnich-udaju.html" >zpracováním osobních údajů</a>. *</label>
+        </div>
+        <p class="checkout-customer-form__warning_info">Kolonky označené * jsou povinné.</p>
+        {% endif %}
+    </form>
+
+    <div class="checkout-order-sumary">        
+        <h3>Shrnutí objednávky:</h3>        
+            {% for item in items %}
+            <div class="checkout-order-sumary__grid_sumary">
+                <p class="checkout-order-sumary__product">{{ item.product.id_category }} - {{ item.product }}</p>
+                <p class="checkout-order-sumary__price">{{ item.price }} Kč</p>
+                <p class="checkout-order-sumary__choices">   
+                    {% if item.product.with_dressing or item.product.with_drink or item.product.with_side_dish %} 
+                        <em>Vámi zvolené doplňky: </em><br>
+                    {% endif %} 
+                    {% if item.dressing != None %} 
+                        Dresink: {{item.dressing}} <br>
+                    {% endif %}
+                    {% if item.side_dish != None %}
+                        Příloha: {{item.side_dish}}
+                    {% endif %}
+                    {% if item.drink != None %}
+                        Nápoj 0.33l: {{item.drink}}
+                    {% endif %}
+                </p>   
+            </div>
+        {% endfor %}
+        
+        <p class="checkout-order-sumary__total_info">POLOŽEK CELKEM: <span>{{ cart_items_total }}</span></p>
+        <p class="checkout-order-sumary__total_info">ZA POLOŽKY CELKEM: <span>{{ cart_price_total }} Kč</span></p>
+        <p class="checkout-order-sumary__total_info">ROZVOZ: <span>{{ order.delivery_price }} Kč</span></p>
+        <h3>CENA CELKEM: <span id="get-total-price-with-delivery">{{ order.get_cart_price_total_with_delivery }}</span> Kč</h3>
+        
+    </div>
+    
+    <a class="back-to-cart" href="{% url 'kosik' %}">Zpět do košíku</a>
+
+    <button id='send-order' class="btn btn-send-order">Odeslat objednávku</button>
+    <p id="send-order__place-without-customer-data" class="btn-send-order__place-without-customer-data">* Vyplňte, prosím, doručovací údaje.</p>
+
+{% else %}
+    <div class="empty-order-warning">
+        <div class="empty-order-warning__info">
+            <h3>Nic k objednání zde není.</h3>
+        </div>
+        <div class="empty-order-warning__href">
+            <a class="empty-order-warning__bact-to-menu" href="{% url 'nabidka' %}">Pokračovat v nákupu</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+<style>
+    @media (max-width: 992px) {
+        .info-banner, nav {
+            display: none;
+        }
+    }
+</style>
+<script type="text/javascript" src="{% static '/js/checkout.js' %}"></script> 
+{% endblock %}

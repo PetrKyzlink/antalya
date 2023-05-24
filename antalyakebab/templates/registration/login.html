@@ -1,0 +1,20 @@
+{% extends "obsluha.html" %}
+{% load static %}
+{% block content %}
+<div class="login-container">
+    <img class="logo" src="{% static 'images/antalya-logo.png' %}" alt="Klášterec Antalya Kebab">
+    <div class="login-form">
+        <h2> Přihlásit se </h2> 
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"> Přihlásit se </button> 
+        </form>
+    </div>
+</div>
+<style>
+    section, a {
+        display: none;
+    }
+</style>
+{% endblock %}

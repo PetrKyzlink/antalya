@@ -1,0 +1,455 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    background-color: #BB996C;
+}
+
+.container {
+    width: 98%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ---- login ---- */
+
+.login-container {
+    margin: auto;
+    background-image: linear-gradient(to right, transparent, #6A3A28 20%, #6A3A28 80%, transparent);
+    background-position: center bottom;
+    background-size: 100% 60%;
+    height: 100vb;
+    max-height: 100%;
+}
+
+.logo {
+    display: block;
+    max-width: 330px;
+    margin: 0 auto;
+    padding: 2rem;
+
+}
+
+.login-form {
+    max-width: 320px;
+    margin: 4rem  auto; 
+    background-color: #BB996C; 
+    border-radius: 10px;
+}
+
+.login-form > h2 {
+    text-align: center;
+    color: #6A3A28;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding: 0.8rem 0.5rem 0.3rem 0.5rem;
+    
+}
+
+.login-form > form {
+    margin: 0 auto;   
+}
+.login-form > form > p {
+    margin: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #6A3A28;
+}
+.login-form > form > p > input {
+    font-size: 0.9rem;
+    border: solid 0.3rem #BB996C;
+    margin: 0.3rem;
+    max-width: 50%;
+    text-align: center;
+}
+
+.login-form > form > p > input:focus {
+    outline: 2px solid #fff;
+}
+
+.login-form > form > p > label {
+    text-transform: uppercase;
+    max-width: 40%;
+    font-size: 0.9rem;
+    color: #BB996C;
+}
+
+.errorlist{
+    margin: 0.75rem;
+    font-size: 0.8rem;
+}
+
+button {
+    background-color: #6A3A28;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px;
+    margin: 5px 5px 10px 61%;
+    font-size: 0.85rem;
+    border: solid 2px #BB996C;
+    box-shadow: 1px 2px 1px #6A3A28;
+    cursor: pointer;
+}
+
+button:hover {
+    color: #BB996C;
+}
+
+button:active {
+    box-shadow: none;
+    transform: translateY(3px); 
+    background-color: #A6744C;
+}
+
+/* ----- service and history_orders ------ */
+
+h1 {
+    font-size: 1.5rem;
+    background-image: linear-gradient(to right, #6A3A28 30%, transparent);
+    color: #BB996C;
+    padding: 0.3rem;
+}
+
+.logout {
+    background-image: linear-gradient(#6A3A28 50%, transparent);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    align-content: end;
+}
+.logout > .logo {
+    max-width: 110px;
+    margin: 0;
+    padding: 0;
+}
+
+.logout > a {
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: underline;
+}
+
+li {
+    list-style: none;
+}
+
+.navigate-orders {
+    background-color: #BB996C;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 25% 25% 25% 25%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.31rem;
+    place-items: stretch;
+    text-align: center;
+    z-index: 1;
+}
+
+.navigate-orders > li {
+    padding: 0.31rem;
+    margin: 0.31rem;
+    background-color: #6A3A28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigate-orders > li > a {
+    text-transform: uppercase;
+    color: #fff;
+    width: 100%;
+}
+
+.navigate-orders > li > a:hover {
+    color: #BB996C;
+}
+
+.href_to_up {
+    background-color: #BB996C;
+    position: relative;
+    bottom: 47px;
+    z-index: -10;
+    height: 0;
+}
+
+.new-orders-extract, .today-orders-completed-extract, .history-orders-extract {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    background-color: #eadec8;
+    margin:0.3rem auto;
+    max-width: 800px;
+    align-items: center;
+}
+
+.new-orders-extract > p, .today-orders-completed-extract > p, .history-orders-extract > p {
+    font-weight: 750;
+}
+
+.new-orders-extract > p > span, .today-orders-completed-extract > p > span, .history-orders-extract > p > span {
+    font-size: 1.2rem;
+}
+
+.today-orders-completed {
+    margin-bottom: 200px;
+}
+
+/* --new order, orders in process, today completed order and history order detail-- */
+
+.new-order-container, .today-completed-order-container, .history-order-container {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;  
+    max-width: 1200px;
+    width: 100%;
+    z-index: 100;
+    border: solid 0.6rem #6A3A28;
+    border-radius: 0.6rem;
+}
+
+.new-order-container, .today-completed-order-container, .order-in-process-container, .history-order-container {
+    background-color: #eadec8;
+}
+
+.order-in-process-container {
+    margin: 0 auto 0.3rem auto;
+    border: solid 0.3rem #BB996C;
+    max-width: 804px;
+}
+
+.order-in-process-container > .order-number {
+    margin-top: 0;
+}
+
+
+.order-centering {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.order-number {
+    color: #BB996C;
+    text-align: center;
+    padding: 0.31rem;
+    margin-bottom: 0.3rem;
+    font-size: 1.6rem;
+    background-color: #6A3A28;
+}
+
+.order-creation-time {
+    margin:0;
+    padding: 0.3rem;
+    text-align: center;
+}
+
+.order-customer-info__grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+}
+
+.order-customer-info__customer {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0.75rem;
+}
+
+.order-customer-info__delivery_address {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0.75rem;
+}
+
+.order-customer-info__customer > h2, .order-customer-info__delivery_address > h2{
+    font-size: 1.35rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    padding-left: 0.1rem;
+}
+
+.order-customer-info__customer > p, .order-customer-info__delivery_address > p {
+    margin:0 auto;
+    padding: 0.1rem;
+}
+
+.order-customer-info__customer_comment {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    padding: 0.1rem;
+    margin: 0.75rem;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.order-customer-info__customer_comment > p > span {
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1rem;
+}
+
+.order-item-sumary {
+    margin: 0.75rem;
+}
+
+.order-item-sumary > h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    padding-left: 0.1rem;
+}
+
+.order-item-sumary__grid, .order-delivery-price__grid, .order-sumary-total__grid, .order-item-total__grid {
+    display: grid;
+    grid-template-columns: 85% 15%;
+    align-items: end;
+    margin-bottom: 0.3rem;
+    border-bottom: 0.1rem solid #BB996C;
+    max-width: 804px;
+    
+}
+
+
+.order-item-total__grid {
+    grid-template-columns: 50% 50%;
+}
+
+.order-sumary-total__grid {
+    grid-template-columns: 50% 50%;
+    align-items: center;
+}
+
+.order-sumary__grid_column_one {
+    grid-column: 1;
+    margin: 0;
+    margin-bottom: 0.3rem;
+    padding: 0.1rem;
+}
+
+.order-sumary__grid_column-two {
+    grid-column: 2;
+    justify-self: end;
+    margin: 0;
+    margin-bottom: 0.3rem;
+    padding: 0.1rem;
+}
+
+.new-order-preparation-time {
+    display:flex;
+    justify-content: center;
+}
+
+select {
+    margin: 0.6rem;
+    font-size: 0.9rem;
+    width: 100px;
+    border: solid 0.3rem #BB996C;
+    background-color: #eadec8;
+    text-align: center;
+    align-items: center;
+}
+
+select:focus {
+    outline: none;
+}
+
+.order-manipulation {
+    display:flex;
+    justify-content: end;
+}
+.close-page, .open-page {
+    background-color: #6A3A28;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px;
+    margin: 5px ;
+    font-size: 0.85rem;
+    border: solid 2px #BB996C;
+    box-shadow: 1px 2px 1px #6A3A28;
+}
+
+.close-page:hover, .open-page:hover {
+    color: #BB996C;
+}
+
+.close-page:active, .open-page:active {
+    box-shadow: none;
+    transform: translateY(3px);
+    background-color: #A6744C;
+}
+
+.new-order-btn-send-confirmation,  .order-completed-btn-send-confirmation, .storno-btn {
+    margin: 5px;
+}
+
+@media screen and (max-width: 800px) {
+    /* ---- service and history_orders ---- */
+    
+    .navigate-orders {
+        grid-template-rows: auto auto;
+        grid-template-columns: 50% 50%;
+    }
+    .navigate-orders > li > a, .logout > a {
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .new-orders-extract > p, .today-orders-completed-extract > p, .history-orders-extract > p {
+        font-size: 0.85rem;
+    }
+    
+    .new-orders-extract > p > span, .today-orders-completed-extract > p > span, .history-orders-extract > p > span {
+        font-size: 1rem;
+    }
+
+    /* --new order, orders in process, today completed order and history order detail-- */
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    .order-number {
+        font-size: 1.3rem;
+    }
+
+    .order-creation-time {
+        font-size: 0.9rem;
+    }
+
+    .order-customer-info__customer > h2, .order-customer-info__delivery_address > h2, .order-item-sumary > h2 {
+        font-size: 1.1rem;
+        
+    }
+    
+    .order-customer-info__customer > p, .order-customer-info__delivery_address > p {
+        font-size: 0.9rem;
+    }
+    
+    .order-customer-info__customer_comment {
+        font-size: 0.8rem;
+    }
+    
+    .order-customer-info__customer_comment > p > span, .order-item-sumary {
+        font-size: 0.9rem;
+    }  
+    .close-page, .open-page, button {
+        font-size: 0.7rem;
+    }
+}

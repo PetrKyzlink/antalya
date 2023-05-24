@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="cart-container">
+    {% for item in items %}    
+        <div class="cart-item__grid">            
+            <p class="cart-item__grid_product">{{item.product.id_category}} - {{item.product}}<br><span class="cart-item__grid_composition">{{item.product.composition}}</span></p>
+            <p class="cart-item__grid_price">{{item.price}} Kč</p>
+            
+            <form class="cart-item__grid_form" method="post">
+                {% csrf_token %}
+                {% if item.product.with_dressing %}
+                    <select class="get-dressing" data-cartitem="{{item.id}}" data-action="update" data-selected="dressing">
+                        {% if item.dressing != None %}
+                            <option value="{{ item.dressing.id }}" selected class="get-dressing">{{ item.dressing }}</option>
+                        {% else %}
+                            <option selected disabled>Zvolte dresink *</option>
+                        {% endif %}
+                        {% for choice_dressing in dressing %}
+                            <option value="{{ choice_dressing.id }}" class="get-dressing">{{ choice_dressing }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            
+                {% if item.product.with_drink %}
+                    <select class="get-drink" data-cartitem="{{item.id}}" data-action="update" data-selected="drink">
+                        {% if item.drink != None %}
+                            <option  value="{{ item.drink.id }}" selected class="get-drink">{{ item.drink }}</option>
+                        {% else %}
+                            <option selected disabled>Zvolte nápoj *</option>
+                        {% endif %}
+                        {% for choice_drink in drink %}
+                            <option value="{{ choice_drink.id }}"class="get-drink">{{ choice_drink }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            
+                {% if item.product.with_side_dish %}
+                    <select class="get-side-dish" data-cartitem="{{item.id}}" data-action="update" data-selected="sidedish">
+                        {% if item.side_dish != None %}
+                            <option value="{{ item.side_dish.id }}" selected class="get-side-dish">{{ item.side_dish }}</option>
+                        {% else %}
+                            <option selected disabled>Zvolte přílohu *</option>
+                        {% endif %}
+                        {% for choice_side_dish in side_dish %}
+                            <option value="{{ choice_side_dish.id }}" class="get-side-dish">{{ choice_side_dish }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </form>
+            
+            <button data-cartitem="{{item.id}}" data-action="remove" class="remove-cart-btn update-cart">Odebrat</button>           
+        </div>         
+    {% endfor %}
+
+    <div class="cart-total-info">
+        {% if cart_items_total != 0 %}
+            <p>CENA CELKEM: {{cart_price_total}} Kč</p>
+            <p>POLOŽEK CELKEM: {{cart_items_total}}</p>
+        {% else %}
+            <h3>Košík je prázdný</h3>
+        {% endif %}
+    </div>
+
+    <div class="cart-go-to">
+        <a class="cart-go-to-menu" href="{% url 'nabidka' %}">Pokračovat v nákupu</a>
+        {% if order.get_cart_items_total != 0 %}
+            {% if go_to_checkout %}
+                <a class="cart-go-to-order" href="{% url 'objednavka' %}">Přejít k objednávce</a>  
+            {% else %}
+                <p class="cart-go-to-order-info">* Zvolte, prosím, doplňky u produktů.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    @media (max-width: 992px) {
+        .info-banner {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}

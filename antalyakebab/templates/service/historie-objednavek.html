@@ -1,0 +1,29 @@
+{% extends "obsluha.html" %}
+{% load static %}
+{% block content %}
+{% load tz %}
+    <div class="logout">
+        <img class="logo" src="{% static 'images/antalya-logo.png' %}" alt="Klášterec Antalya Kebab">
+        <a href = "{% url 'logout' %}"> Odhlásit se </a>
+    </div>
+
+    <nav class="navigate-orders">
+        <li><a href="/obsluha/#new-orders">Nové objednávky</a></li>
+        <li><a href="/obsluha/#orders-in-process">Objednávky v přípravě</a></li>
+        <li><a href="/obsluha/#today-orders-completed">Dnes vyřízené obj.</a></li>
+        <li><a href = "{% url 'historie-objednavek' %}">Historie objednávek</a></li>
+    </nav>
+    <section class="history-orders">
+
+        {% for order in orders %}
+            <div id='{{order.id}}' class="history-orders-extract">
+                <p>Objednávka č.: <span>{{ order.order_number }}</span></p>
+                <p>{{ order.date_ordered|timezone:"Europe/Prague"|date:'d. m. Y' }}</p>
+                <p>{{ order.total_price_order }} Kč</p>
+                <a class="order-link open-page" href="{% url 'historie-objednavka-detail' pk=order.id order_number=order.order_number %}">Zobrazit</a>
+            </div>
+        {% endfor %} 
+        {% include 'service/objednavka-detail.html' with order=order %}
+    </section>
+
+{% endblock %}

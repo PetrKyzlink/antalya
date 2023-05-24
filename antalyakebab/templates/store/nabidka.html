@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+    <div class="menu-container">
+        <div class="place-for-aside-cart">
+            {% if cart_items_total  %}
+            <div class="aside-cart">                
+                <h4>Položky v košíku ({{cart_items_total}} = {{cart_price_total}} Kč)</h4>
+                <p class="aside-cart__info">V košíku si zvolíte případné doplňky jako je dresink,<br>nápoj k menu či přílohu.</p>
+                <div class="aside-cart__grid">
+                    {% for item in items %}
+                    <p class = "aside-cart__product">{{item.product.id_category}} - {{item.product}}</p>
+                    <p class="aside-cart__product_price">{{item.price}}Kč</p>
+                    <button data-cartitem="{{item.id}}" data-action="remove" class="btn remove-cart-btn update-cart">Odebrat</button>
+                    {% endfor %}               
+                </div>
+                <div class="cart-btn">
+                    <a href="{% url 'kosik' %}">PŘEJÍT DO KOŠÍKU</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <section class="list-products">
+            <div id="salat" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Salát</h2>
+            {% for salad in salads %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{salad.product}} <br>
+                <em class="list-products__composition">{{salad.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{salad.alerrgens}})</p>
+                <p class="list-products__price">{{salad.price}},-</p>
+                <button data-product="{{salad.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}        
+        </section>
+        <section class="list-products">
+            <div id="doner-box" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Döner <br><span>box</span></h2>
+            {% for doner_box in doner_boxes %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{doner_box.product}} <br>
+                <em class="list-products__composition">{{doner_box.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{doner_box.alerrgens}})</p>
+                <p class="list-products__price">{{doner_box.price}},-</p>
+                <button data-product="{{doner_box.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div> 
+            {% endfor %}        
+        </section>
+        
+        <section class="list-products">
+            <div id="doner-kebab-v-chlebu" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Döner <br><span>kebab v chlebu</span></h2>
+            {% for doner_bread in doner_breads %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{doner_bread.product}} <br>
+                <em class="list-products__composition">{{doner_bread.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{doner_bread.alerrgens}})</p>
+                <p class="list-products__price">{{doner_bread.price}},-</p>
+                <button data-product="{{doner_bread.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}        
+        </section>
+        
+        <section class="list-products">
+            <div id="vegetarianske-jidlo" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category" >Vegetariánské <br><span>jídlo</span></h2>
+            {% for veget_food in veget_foods %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{veget_food.product}} <br>
+                <em class="list-products__composition">{{veget_food.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{veget_food.alerrgens}})</p>
+                <p class="list-products__price">{{veget_food.price}},-</p>
+                <button data-product="{{veget_food.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}
+        </section>
+        
+        <section class="list-products">
+            <div id="durum-kebab-v-tortile" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Dürüm <br><span>kebab v tortile</span></h2>
+            {% for durum_tortilla in durum_tortillas %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{durum_tortilla.product}} <br>
+                <em class="list-products__composition">{{durum_tortilla.composition}}</em></h4>
+                <p class="list-products__alerrgens">(A:1,5,7{{durum_tortilla.alerrgens}})</p>        
+                <p class="list-products__price">{{durum_tortilla.price}},-</p>
+                <button data-product="{{durum_tortilla.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}
+        </section>
+        
+        <section class="list-products">
+            <div id="kebab-na-taliri" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Kebab <br><span>na talíři</span></h2>
+            {% for kebab_plate in kebab_plates %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{kebab_plate.product}} <br>
+                <em class="list-products__composition">{{kebab_plate.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{kebab_plate.alerrgens}})</p>
+                <p class="list-products__price">{{kebab_plate.price}},-</p>
+                <button data-product="{{kebab_plate.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}        
+        </section>
+        
+        <section class="list-products">
+            <div id="pizza" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Pizza</h2>
+            {% for pizza in pizzas %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{pizza.product}} <br>
+                <em class="list-products__composition">{{pizza.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{pizza.alerrgens}})</p>
+                <p class="list-products__price">{{pizza.price}},-</p>
+                <button data-product="{{pizza.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}
+        </section>
+        
+        <section class="list-products">
+            <div id="ostatni" class="list-products__href_to_up"></div>
+            <h2 class="list-products__category">Ostatní</h2>
+            {% for other in others %}
+            <div class="list-products__grid">
+                <h4 class="list-products__product">{{other.product}} <br>
+                <em class="list-products__composition">{{other.composition}}</em></h4> 
+                <p class="list-products__alerrgens">(A:1,5,7{{other.alerrgens}})</p>
+                <p class="list-products__price">{{other.price}},-</p>
+                <button data-product="{{other.pk}}" data-action="add" class="btn btn-list-products__add_cart update-cart">Do košíku</button>
+            </div>
+            {% endfor %}        
+        </section>        
+    </div>
+{% endblock %} 

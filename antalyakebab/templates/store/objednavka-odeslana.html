@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="order-sent-container">
+    <h1>Děkujeme! Vaše objednávka s číslem:<span> {{ order.order_number }} </span>byla úspěšně odeslána.</h1>
+    <h3>Vyčkejte, prosím, na potvrzovací email, kterým Vás budeme informovat o průběhu zpracování Vaší objednávky. </h3>
+
+    <div class="recap-order">
+        <h2>Rekapitulace objednávky:</h2>
+        <p>Objednávka vytvořena: {{ order_creation_time }}</p>
+        <div class="recap-order__grid_customer_info">
+            <div class="recap-order__customer">
+                <h2>Zákazník:</h2>
+                <p>{{ customer.name }} {{ customer.last_name }}</p>
+                <p>Email: {{ customer.email }}</p>
+                <p>Tel.: {{ customer.phone_number }}</p>
+            </div>
+            <div class="recap-order__delivery_address">
+                <h2>Doručovací adresa:</h2>
+                {% if delivery_address is None %}
+                    <p>Osobní odběr</p>
+                    <p>Klášterec Antalya Kebab</p>
+                    <p>Budovatelská 488</p>
+                    <p>Klášterec nad Ohří</p>
+                {% endif %}
+                {% if delivery_address %}
+                    <p>{{ delivery_address.street }}</p>
+                    <p>{{ delivery_address.city }}</p>
+                    <p>{{ delivery_address.zipcode }}</p>
+                {% endif %}
+            </div>
+            {% if order.customer_comment != None %}
+                <p class="recap-order__customer_comment"><span>Poznámka zákazníka:</span><br>{{order.customer_comment }}</p>
+            {% endif %}
+        </div>
+            <div class="recap-order__item_sumary">
+                <h2>Položky:</h2>               
+                {% for item in items %}
+                <div class="recap-order__item_sumary_grid">
+                    <p class="recap-order__item_sumary_product">{{item.product.id_category}} - {{item.product}} <br><em>
+                    {% if item.product.with_dressing or item.product.with_drink or item.product.with_side_dish %} 
+                        Zvolené doplňky: <br>
+                    {% endif %} 
+                    {% if item.dressing != None %} 
+                        Dresink: {{item.dressing}} <br>
+                    {% endif %}
+                    {% if item.side_dish != None %}
+                        Příloha: {{item.side_dish}} <br>
+                    {% endif %}
+                    {% if item.drink != None %}
+                        Nápoj 0.33l: {{item.drink}} 
+                    {% endif %}
+                    </em></p>
+                    <p class="recap-order__item_sumary_product_price" >{{item.price}} Kč</p>
+                </div>
+                {% endfor %}
+                <div class="recap-order__all_item_sumary_grid">
+                    <p class="recap-order__item_sumary_product">Položek: &nbsp;&nbsp;&nbsp;{{ cart_items_total }}</p>
+                    <p class="recap-order__item_sumary_product_price">Celkem: &nbsp;&nbsp;&nbsp;{{ cart_price_total }} Kč</p>
+                </div>
+                <div class="recap-order__delivery_grid">
+                    <p class="recap-order__delivery">{{ order.delivery }}</p>
+                    <p class="recap-order__delivery_price" >{{order.delivery.delivery_price}} Kč</p>
+                </div>
+                <div class="recap-order__sumary_grid">
+                    <h2 class="recap-order__sumary">Cena celkem:</h2>
+                    <h2 class="recap-order__sumary_price">{{ total_price_order }} Kč</h2>
+                </div>
+            </div>
+        
+    </div>
+    <a class="order-sent__bact-to-menu" href="{% url 'nabidka' %}">Zpět na nabídku</a>
+</div>
+<style>
+    @media (max-width: 992px) {
+        nav {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}

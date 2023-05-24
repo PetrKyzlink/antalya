@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="something-wrong-container">
+        <h1>Je nám líto.</h1>
+        <h3>Vaší objednávku se nepodařilo odeslat.</h3>
+        <p>Je možné, že některé údaje nebyly vyplněny nebo nebyl udělen souhlas se <a href="#" >zpracováním osobních údajů</a> či souhlas s <a href="#" >obchodními podmínkami</a></p>
+        <p>Vraťte se, prosím, k Vaší objednávce a zkontrolujte všechny kolonky ozančené *.</p>
+        <a class="cart-go-to-order" href="{% url 'objednavka' %}">Zpět k objednávce</a> 
+    </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% load static %}
+{% if order %}
+    <div class="history-order-container"> 
+        <div class="order-centering">
+            <h2 class="order-number">Objednávka číslo: {{ order.order_number }}</h2>
+            <p class="order-creation-time">Čas vytvoření: {{ order_creation_time }}</p>
+            <div class="order-customer-info__grid">
+                {% if customer %}
+                    <div class="order-customer-info__customer">  
+                        <h2>Zákazník:</h2>
+                        <p>{{ customer.name }} {{ customer.last_name }}</p>
+                        <p>Email: {{ customer.email }}</p>
+                        <p>Tel.: {{ customer.phone_number }}</p>
+                    </div>
+                {% endif %}
+                {% if order.delivery %}
+                    <div class="order-customer-info__delivery_address">
+                        <h2>Doručovací adresa:</h2>
+                        {% if order.delivery.id == 1 %}
+                            <p>Osobní odběr</p>
+                            <p>Klášterec Antalya Kebab</p>
+                            <p>Budovatelská 488</p>
+                            <p>Klášterec nad Ohří</p>
+                        {% endif %}
+                        {% if order.delivery.id == 2 %}
+                            <p>{{ delivery_address.street }}</p>
+                            <p>{{ delivery_address.city }}</p>
+                            <p>{{ delivery_address.zipcode }}</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="order-customer-info__customer_comment">
+                    {% if order.customer_comment != None %}
+                        <p><span>Poznámka zákazníka:</span><br>{{ order.customer_comment }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        
+            <div class="order-item-sumary">
+                <h2>Položky:</h2>               
+                {% for item in items %}
+                    <div class="order-item-sumary__grid">
+                        <p class="order-sumary__grid_column_one">{{item.product.id_category}} - {{item.product}} <br><em> 
+                        {% if item.dressing != None %} 
+                            Dresink: {{item.dressing}} <br>
+                        {% endif %}
+                        {% if item.side_dish != None %}
+                            Příloha: {{item.side_dish}} <br>
+                        {% endif %}
+                        {% if item.drink != None %}
+                            Nápoj 0.33l: {{item.drink}} 
+                        {% endif %}
+                        </em></p>
+                        <p class="order-sumary__grid_column-two">{{item.price}} Kč</p>
+                    </div>
+                    {% endfor %}
+                
+                    <div class="order-item-total__grid">
+                        <p class="order-sumary__grid_column_one">Položek: &nbsp;&nbsp;&nbsp;{{ cart_items_total }}</p>
+                        <p class="order-sumary__grid_column-two">Celkem: &nbsp;&nbsp;&nbsp;{{ cart_price_total }} Kč</p>
+                    </div>
+                    <div class="order-delivery-price__grid">
+                        <p class="order-sumary__grid_column_one">{{ order.delivery }}</p>
+                        <p class="order-sumary__grid_column-two">{{ order.delivery.delivery_price}} Kč</p>
+                    </div>
+                    <div class="order-sumary-total__grid">
+                        <h2 class="order-sumary__grid_column_one">Cena celkem:</h2>
+                        <h2 class="order-sumary__grid_column-two">{{ total_price_order}} Kč</h2>
+                    </div>
+                </div>
+                <div class="order-manipulation">
+                    <a class="close-page" href="{% url 'close-page-history-order' pk=order.id %}">Zavřít</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
